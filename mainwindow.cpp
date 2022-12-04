@@ -43,7 +43,7 @@ void MainWindow::onVerifyBtnPressed()
     }
 
     QMessageBox(QMessageBox::Information, tr("Success"),
-                QString("Your backup file is valid\nChain=%2").arg(result.chain)).exec();
+                QString("Your backup is working (chain=%2). To prevent unauthorized access, please remove the backup file from this device.").arg(result.chain)).exec();
     return;
 }
 

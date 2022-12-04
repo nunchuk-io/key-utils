@@ -60,13 +60,13 @@ static std::pair<std::string, std::string> getKeyFingerPrint(const std::string &
 
     if (data.size() == BIP32_EXTKEY_SIZE + std::size(BASE58_MAINNET_PRIV_PREFIX) &&
             std::equal(std::begin(BASE58_MAINNET_PRIV_PREFIX), std::end(BASE58_MAINNET_PRIV_PREFIX), data.begin())) {
-        chain = "MAIN";
+        chain = "mainnet";
         parent_fingerprint = HexStr(MakeSpan(data).subspan(1, 4));
     }
 
     if (data.size() == BIP32_EXTKEY_SIZE + std::size(BASE58_TESTNET_PRIV_PREFIX) &&
             std::equal(std::begin(BASE58_TESTNET_PRIV_PREFIX), std::end(BASE58_TESTNET_PRIV_PREFIX), data.begin())) {
-        chain = "TESTNET";
+        chain = "testnet";
         parent_fingerprint = HexStr(MakeSpan(data).subspan(1, 4));
     }
 
@@ -83,7 +83,7 @@ VerifyTapsignerBackupResult verifyTapsignerBackup(const QByteArray &backupData, 
 
     static const QRegExp reg(R"(^[0-9A-Fa-f]{32}$)");
     if (!reg.exactMatch(decryptionKey)) {
-        return VerifyTapsignerBackupResult{{}, "Invalid decryption key, decryption key must be exactly 32 (hex) characters"};
+        return VerifyTapsignerBackupResult{{}, "Invalid Backup Password. The Backup Password must have exactly 32 hexadecimal characters."};
     }
 
     const QByteArray key = QByteArray::fromHex(decryptionKey.toLocal8Bit());
@@ -91,7 +91,7 @@ VerifyTapsignerBackupResult verifyTapsignerBackup(const QByteArray &backupData, 
     std::string decrypted = AES128CTRDecrypt(backupData.begin(), backupData.end(), key.begin(), key.end());
     if (!std::equal(std::begin(xprv), std::end(xprv), std::begin(decrypted)) &&
             !std::equal(std::begin(tprv), std::end(tprv), std::begin(decrypted))) {
-        return VerifyTapsignerBackupResult{{}, "Invalid decryption key or corrupted backup file"};
+        return VerifyTapsignerBackupResult{{}, "Invalid Backup Password or corrupted backup file"};
     }
 
     auto sp = QString::fromStdString(decrypted).split('\n');
@@ -100,7 +100,7 @@ VerifyTapsignerBackupResult verifyTapsignerBackup(const QByteArray &backupData, 
     }
 
     if (auto [fingerprint, chain] = getKeyFingerPrint(sp[0].toStdString()); fingerprint.empty()) {
-        return VerifyTapsignerBackupResult{{}, "Invalid decryption key or corrupted backup file"};
+        return VerifyTapsignerBackupResult{{}, "Invalid Backup Password or corrupted backup file"};
     } else {
         return VerifyTapsignerBackupResult{QString::fromStdString(fingerprint), {}, QString::fromStdString(chain)};
     }

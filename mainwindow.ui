@@ -81,7 +81,7 @@
           <item>
            <widget class="QLabel" name="decryptionKeyLb">
             <property name="text">
-             <string>Decryption key</string>
+             <string>Backup Password</string>
             </property>
            </widget>
           </item>
