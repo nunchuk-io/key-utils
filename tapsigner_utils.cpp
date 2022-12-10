@@ -83,7 +83,7 @@ VerifyTapsignerBackupResult verifyTapsignerBackup(const QByteArray &backupData, 
 
     static const QRegExp reg(R"(^[0-9A-Fa-f]{32}$)");
     if (!reg.exactMatch(decryptionKey)) {
-        return VerifyTapsignerBackupResult{{}, "Invalid Backup Password. The Backup Password must have exactly 32 hexadecimal characters."};
+        return VerifyTapsignerBackupResult{{}, {}, "Invalid Backup Password. The Backup Password must have exactly 32 hexadecimal characters."};
     }
 
     const QByteArray key = QByteArray::fromHex(decryptionKey.toLocal8Bit());
@@ -91,18 +91,18 @@ VerifyTapsignerBackupResult verifyTapsignerBackup(const QByteArray &backupData, 
     std::string decrypted = AES128CTRDecrypt(backupData.begin(), backupData.end(), key.begin(), key.end());
     if (!std::equal(std::begin(xprv), std::end(xprv), std::begin(decrypted)) &&
             !std::equal(std::begin(tprv), std::end(tprv), std::begin(decrypted))) {
-        return VerifyTapsignerBackupResult{{}, "Invalid Backup Password or corrupted backup file"};
+        return VerifyTapsignerBackupResult{{}, {}, "Invalid Backup Password or corrupted backup file"};
     }
 
     auto sp = QString::fromStdString(decrypted).split('\n');
     if (sp.isEmpty()) {
-        return VerifyTapsignerBackupResult{{}, "Corrupted backup file"};
+        return VerifyTapsignerBackupResult{{}, {}, "Corrupted backup file"};
     }
 
     if (auto [fingerprint, chain] = getKeyFingerPrint(sp[0].toStdString()); fingerprint.empty()) {
         return VerifyTapsignerBackupResult{{}, "Invalid Backup Password or corrupted backup file"};
     } else {
-        return VerifyTapsignerBackupResult{QString::fromStdString(fingerprint), {}, QString::fromStdString(chain)};
+        return VerifyTapsignerBackupResult{QString::fromStdString(fingerprint), QString::fromStdString(decrypted), {}, QString::fromStdString(chain)};
     }
 }
 }

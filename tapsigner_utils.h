@@ -8,6 +8,7 @@ namespace tapsigner_utils {
 
     struct VerifyTapsignerBackupResult {
         QString fingerprint;
+        QString xpriv;
         QString error;
         QString chain;
 
