@@ -89,6 +89,9 @@ VerifyTapsignerBackupResult verifyTapsignerBackup(const QByteArray &backupData, 
     const QByteArray key = QByteArray::fromHex(decryptionKey.toLocal8Bit());
 
     std::string decrypted = AES128CTRDecrypt(backupData.begin(), backupData.end(), key.begin(), key.end());
+    if (decrypted.size() < 4) {
+        return VerifyTapsignerBackupResult{{}, {}, "Invalid Backup Password or corrupted backup file"};
+    }
     if (!std::equal(std::begin(xprv), std::end(xprv), std::begin(decrypted)) &&
             !std::equal(std::begin(tprv), std::end(tprv), std::begin(decrypted))) {
         return VerifyTapsignerBackupResult{{}, {}, "Invalid Backup Password or corrupted backup file"};
