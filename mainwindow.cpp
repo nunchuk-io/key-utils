@@ -3,6 +3,7 @@
 #include "tapsigner_utils.h"
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QPixmap>
 #include <QDebug>
 
 
@@ -22,7 +23,6 @@ void MainWindow::onSelectFileBtnPressed()
         const auto selectedFiles = fileDialog.selectedFiles();
         QFileInfo fileInfo(selectedFiles[0]);
         filePath = selectedFiles[0];
-        ui->fileNameLb->setText(fileInfo.fileName());
     }
 }
 
