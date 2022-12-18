@@ -16,9 +16,15 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void showSuccessMessage(QString msg);
+    void showErrorMessage(QString msg);
+    void dragEnterEvent(QDragEnterEvent *event);
+    void dropEvent(QDropEvent *event);
+
 private slots:
     void onSelectFileBtnPressed();
     void onVerifyBtnPressed();
+    void on_closeButton_clicked();
 
 private:
     Ui::MainWindow *ui;
