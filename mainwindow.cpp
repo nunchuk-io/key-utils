@@ -95,7 +95,6 @@ void MainWindow::onVerifyBtnPressed()
     }
     QFileInfo info(filePath);
     QString ext = info.completeSuffix();
-    qDebug() << "onVerifyBtnPressed" << ext;
     if(0 != QString::compare(ext, "aes", Qt::CaseInsensitive)){
         showErrorMessage("Please select *.AES file");
         return;
