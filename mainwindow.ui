@@ -167,7 +167,8 @@ QPushButton: disabled {
     </property>
     <property name="styleSheet">
      <string notr="true">QFrame {
-border: 1px dashed #031F2B;
+border: 2px #031F2B;
+border-style : dashed;
 border-radius: 8px;
 background: #FFFFFF;
 }</string>
