@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QGraphicsDropShadowEffect>
 #include <QMainWindow>
 #include <QFile>
 
@@ -29,5 +30,6 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QString filePath;
+    QGraphicsDropShadowEffect *mDropShadow;
 };
 #endif // MAINWINDOW_H

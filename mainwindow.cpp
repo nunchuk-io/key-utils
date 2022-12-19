@@ -11,7 +11,10 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , mDropShadow(new QGraphicsDropShadowEffect(this))
 {
+    mDropShadow->setBlurRadius(8);
+    mDropShadow->setOffset(QPointF(3,3));
     setAcceptDrops(true);
     ui->setupUi(this);
     ui->frameFileInit->setVisible(true);
@@ -29,6 +32,7 @@ void MainWindow::showSuccessMessage(QString msg)
 {
     ui->verifyBtn->setDisabled(true);
     ui->frameError->setVisible(false);
+    ui->frameSucceed->setGraphicsEffect(mDropShadow);
     ui->frameSucceed->setVisible(true);
     ui->succeedContent->setText(msg);
     QTimer::singleShot(2000, [this]() {
@@ -41,9 +45,9 @@ void MainWindow::showErrorMessage(QString msg)
 {
     ui->verifyBtn->setDisabled(true);
     ui->frameSucceed->setVisible(false);
+    ui->frameError->setGraphicsEffect(mDropShadow);
     ui->frameError->setVisible(true);
     ui->errorContent->setText(msg);
-
     QTimer::singleShot(2000, [this]() {
         ui->frameError->setVisible(false);
         ui->verifyBtn->setDisabled(false);
