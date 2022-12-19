@@ -1,2 +1,9 @@
-<!DOCTYPE RCC>
-<RCC version="1.0"/>
+<RCC>
+    <qresource prefix="/icon">
+        <file>Close.svg</file>
+        <file>Error.svg</file>
+        <file>FileIcon.svg</file>
+        <file>Succeed.svg</file>
+        <file>UploadIcon.svg</file>
+    </qresource>
+</RCC>

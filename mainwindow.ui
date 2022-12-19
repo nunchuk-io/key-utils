@@ -208,7 +208,7 @@ background: #FFFFFF;
       <bool>false</bool>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(&quot;/home/baron/Desktop/Project/tapsigner_tool/tapsigner-tool/UploadIcon.svg&quot;);</string>
+      <string notr="true">background-image: url(&quot;:/icon/UploadIcon.svg&quot;);</string>
      </property>
      <property name="text">
       <string/>
@@ -526,7 +526,7 @@ QPushButton::pressed{
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(&quot;/home/baron/Desktop/Project/tapsigner_tool/tapsigner-tool/FileIcon.svg&quot;);</string>
+      <string notr="true">background-image: url(&quot;:/icon/FileIcon.svg&quot;);</string>
      </property>
      <property name="text">
       <string/>
@@ -547,7 +547,7 @@ QPushButton::pressed{
      <property name="styleSheet">
       <string notr="true">QPushButton {
 	border: none;
-	qproperty-icon:  url(&quot;/home/baron/Desktop/Project/tapsigner_tool/tapsigner-tool/Close.svg&quot;);
+	qproperty-icon:  url(&quot;:/icon/Close.svg&quot;);
    qproperty-iconSize: 24px;
 }</string>
      </property>
@@ -596,7 +596,7 @@ background: #CF4018;
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(&quot;/home/baron/Desktop/Project/tapsigner_tool/tapsigner-tool/Error.svg&quot;);</string>
+      <string notr="true">background-image: url(&quot;:/icon/Error.svg&quot;);</string>
      </property>
      <property name="text">
       <string/>
@@ -667,7 +667,7 @@ background: #A7F0BA;
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(&quot;/home/baron/Desktop/Project/tapsigner_tool/tapsigner-tool/Succeed.svg&quot;);</string>
+      <string notr="true">background-image: url(&quot;:/icon/Succeed.svg&quot;);</string>
      </property>
      <property name="text">
       <string/>

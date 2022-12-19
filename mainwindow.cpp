@@ -147,5 +147,4 @@ void MainWindow::on_advanceBtn_clicked()
 
 void MainWindow::exportXFP()
 {
-    tapsigner_utils::getKeyFingerPrint("");
 }
