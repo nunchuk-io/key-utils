@@ -7,6 +7,7 @@
 #include <QTimer>
 #include <QMimeData>
 #include <QDebug>
+#include <QMenu>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -17,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     mDropShadow->setOffset(QPointF(3,3));
     setAcceptDrops(true);
     ui->setupUi(this);
+    ui->advanceBtn->setVisible(false);
     ui->frameFileInit->setVisible(true);
     ui->frameFileName->setVisible(false);
     ui->frameError->setVisible(false);
@@ -110,7 +112,7 @@ void MainWindow::onVerifyBtnPressed()
         showErrorMessage(result.error);
         return;
     }
-    showSuccessMessage(QString("Your backup is working (chain=%1). To prevent unauthorized access, please remove the backup file from this device.")
+    showSuccessMessage(QString("Your backup is working (chain=%1). To prevent unauthorized access, please remove this file.")
                        .arg(result.chain));
     return;
 }
@@ -120,4 +122,30 @@ void MainWindow::on_closeButton_clicked()
     ui->frameFileInit->setVisible(true);
     ui->frameFileName->setVisible(false);
     ui->filenameObj->setText("");
+}
+
+void MainWindow::on_advanceBtn_clicked()
+{
+    QPoint pos = ui->advanceBtn->mapFromGlobal(QCursor::pos());
+    QMenu *menu = new QMenu(this);
+    menu->setStyleSheet(" \
+                       QMenu {\
+                           background-color: #FFFFFF;\
+                           border-radius: 8px;\
+                       }\
+                       QMenu::item {\
+                           padding: 10px 10px 10px 10px;\
+                       }\
+                       QMenu::item:selected {\
+                           background: #C7C7C7;\
+                       }\
+    ");
+
+    menu->addAction(QString("Extract master private key (XPRIV)"), this, SLOT(exportXFP()));
+    menu->popup(ui->advanceBtn->mapToGlobal(pos));
+}
+
+void MainWindow::exportXFP()
+{
+    tapsigner_utils::getKeyFingerPrint("");
 }

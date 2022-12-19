@@ -26,6 +26,8 @@ private slots:
     void onSelectFileBtnPressed();
     void onVerifyBtnPressed();
     void on_closeButton_clicked();
+    void on_advanceBtn_clicked();
+    void exportXFP();
 
 private:
     Ui::MainWindow *ui;
