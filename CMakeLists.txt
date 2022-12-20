@@ -22,6 +22,12 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+        xprivDialog.cpp
+        xprivDialog.h
+        xprivDialog.ui
+        verifiedDialog.cpp
+        verifiedDialog.h
+        verifiedDialog.ui
         tapsigner_utils.h
         tapsigner_utils.cpp
 )

@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include "tapsigner_utils.h"
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QPixmap>
@@ -8,6 +7,8 @@
 #include <QMimeData>
 #include <QDebug>
 #include <QMenu>
+#include "xprivDialog.h"
+#include "verifiedDialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -72,12 +73,14 @@ void MainWindow::dropEvent(QDropEvent *event)
             ui->frameFileInit->setVisible(false);
             ui->frameFileName->setVisible(true);
             ui->filenameObj->setText(filePath);
+            ui->advanceBtn->setVisible(false);
         }
     }
 }
 
 void MainWindow::onSelectFileBtnPressed()
 {
+    ui->advanceBtn->setVisible(false);
     QFileDialog fileDialog(this, tr("Select encrypted file"));
     fileDialog.setNameFilter("AES Encrypted (*.aes *.AES);;Any file (*)");
 
@@ -89,30 +92,29 @@ void MainWindow::onSelectFileBtnPressed()
             ui->frameFileInit->setVisible(false);
             ui->frameFileName->setVisible(true);
             ui->filenameObj->setText(filePath);
+            ui->advanceBtn->setVisible(true);
         }
     }
 }
 
 void MainWindow::onVerifyBtnPressed()
 {
-    if (filePath.isEmpty()) {
-        showErrorMessage("Please select file");
-        return;
+    tapsigner_utils::VerifyTapsignerBackupResult result;
+    bool ret = verifyFile(result);
+    if(ret){
+        if (!result) {
+            showErrorMessage(result.error);
+        }
+        else{
+            showSuccessMessage(QString("Your backup is valid (chain=%1)").arg(result.chain));
+            verifiedDialog dialog(this);
+            dialog.setWindowFlag(Qt::FramelessWindowHint);
+            dialog.setAttribute( Qt::WA_TranslucentBackground);
+            dialog.setFilePath(filePath);
+            QObject::connect(&dialog, &verifiedDialog::removeFileDone, this, &MainWindow::removeFileDone);
+            dialog.exec();
+        }
     }
-    if(!filePath.endsWith(".aes",Qt::CaseSensitive)){
-        showErrorMessage("Please select *.AES file");
-        return;
-    }
-    QFile file(filePath);
-    file.open(QFile::OpenModeFlag::ReadOnly);
-    auto result = tapsigner_utils::verifyTapsignerBackup(file.readAll(), ui->decryptionKeyTxt->toPlainText());
-    if (!result) {
-        showErrorMessage(result.error);
-        return;
-    }
-    showSuccessMessage(QString("Your backup is working (chain=%1). To prevent unauthorized access, please remove this file.")
-                       .arg(result.chain));
-    return;
 }
 
 void MainWindow::on_closeButton_clicked()
@@ -120,6 +122,8 @@ void MainWindow::on_closeButton_clicked()
     ui->frameFileInit->setVisible(true);
     ui->frameFileName->setVisible(false);
     ui->filenameObj->setText("");
+    ui->decryptionKeyTxt->clear();
+    ui->advanceBtn->setVisible(false);
 }
 
 void MainWindow::on_advanceBtn_clicked()
@@ -132,7 +136,7 @@ void MainWindow::on_advanceBtn_clicked()
                            border-radius: 8px;\
                        }\
                        QMenu::item {\
-                           padding: 10px 10px 10px 10px;\
+                           padding: 16px 16px 16px 16px;\
                        }\
                        QMenu::item:selected {\
                            background: #C7C7C7;\
@@ -145,4 +149,44 @@ void MainWindow::on_advanceBtn_clicked()
 
 void MainWindow::exportXFP()
 {
+    tapsigner_utils::VerifyTapsignerBackupResult result;
+    bool ret = verifyFile(result);
+    if(ret){
+        if (!result) {
+            showErrorMessage(result.error);
+        }
+        else{
+            showSuccessMessage(QString("Your backup is valid (chain=%1)").arg(result.chain));
+            xprivDialog dialog(this);
+            dialog.setWindowFlag(Qt::FramelessWindowHint);
+            dialog.setAttribute( Qt::WA_TranslucentBackground);
+            dialog.setPrivKey(result.xpriv);
+            dialog.exec();
+        }
+    }
+}
+
+void MainWindow::removeFileDone()
+{
+    ui->frameFileInit->setVisible(true);
+    ui->frameFileName->setVisible(false);
+    ui->filenameObj->setText("");
+    ui->decryptionKeyTxt->clear();
+    ui->advanceBtn->setVisible(false);
+}
+
+bool MainWindow::verifyFile(tapsigner_utils::VerifyTapsignerBackupResult &ret)
+{
+    if (filePath.isEmpty()) {
+        showErrorMessage("Please select file");
+        return false;
+    }
+    if(!filePath.endsWith(".aes",Qt::CaseSensitive)){
+        showErrorMessage("Please select *.AES file");
+        return false;
+    }
+    QFile file(filePath);
+    file.open(QFile::OpenModeFlag::ReadOnly);
+    ret = tapsigner_utils::verifyTapsignerBackup(file.readAll(), ui->decryptionKeyTxt->toPlainText());
+    return true;
 }

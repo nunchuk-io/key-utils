@@ -4,6 +4,7 @@
 #include <QGraphicsDropShadowEffect>
 #include <QMainWindow>
 #include <QFile>
+#include "tapsigner_utils.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -28,10 +29,13 @@ private slots:
     void on_closeButton_clicked();
     void on_advanceBtn_clicked();
     void exportXFP();
+    void removeFileDone();
 
 private:
     Ui::MainWindow *ui;
     QString filePath;
     QGraphicsDropShadowEffect *mDropShadow;
+
+    bool verifyFile(tapsigner_utils::VerifyTapsignerBackupResult &ret);
 };
 #endif // MAINWINDOW_H
