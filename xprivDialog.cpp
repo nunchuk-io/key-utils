@@ -1,5 +1,6 @@
 #include "xprivDialog.h"
 #include "ui_xprivDialog.h"
+#include <QTextDocument>
 #include <QClipboard>
 
 xprivDialog::xprivDialog(QWidget *parent) :
@@ -21,7 +22,7 @@ void xprivDialog::setPrivKey(QString value)
 
 void xprivDialog::on_copyBtn_clicked()
 {
-     QApplication::clipboard()->setText(ui->xprivKey->text());
+     QApplication::clipboard()->setText(ui->xprivKey->toPlainText());
 }
 
 void xprivDialog::on_doneBtn_clicked()

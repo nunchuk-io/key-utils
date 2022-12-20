@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
     }
 
     QApplication a(argc, argv);
+    a.setWindowIcon(QIcon(":/icon/FileIcon.svg"));
     MainWindow w;
     w.setWindowTitle("Tapsigner tool");
     w.show();

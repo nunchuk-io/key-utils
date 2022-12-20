@@ -324,43 +324,16 @@ border-radius: 12px;</string>
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QLabel" name="xprivKey">
+   <widget class="QTextBrowser" name="xprivKey">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>235</width>
-      <height>162</height>
+      <x>12</x>
+      <y>11</y>
+      <width>230</width>
+      <height>160</height>
      </rect>
     </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
    </widget>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>10</y>
-     <width>141</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Master private key</string>
-   </property>
   </widget>
   <widget class="QFrame" name="frameXpriv">
    <property name="geometry">
@@ -387,12 +360,32 @@ border-radius: 24px;</string>
    <property name="midLineWidth">
     <number>5</number>
    </property>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>23</x>
+      <y>10</y>
+      <width>251</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Master private key</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
   </widget>
   <zorder>frameXpriv</zorder>
   <zorder>copyBtn</zorder>
   <zorder>doneBtn</zorder>
   <zorder>frame</zorder>
-  <zorder>label</zorder>
  </widget>
  <resources/>
  <connections/>
