@@ -300,20 +300,24 @@ QPushButton::pressed{
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>3</x>
      <y>20</y>
-     <width>111</width>
-     <height>17</height>
+     <width>294</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="font">
     <font>
+     <pointsize>12</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
    </property>
    <property name="text">
     <string>Backup verified</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">

@@ -116,12 +116,14 @@ QPushButton: disabled {
     </property>
     <property name="font">
      <font>
-      <pointsize>14</pointsize>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
       <kerning>false</kerning>
      </font>
     </property>
     <property name="text">
-     <string>Backup Password (aes decryption key)</string>
+     <string>Backup Password (AES decryption key)</string>
     </property>
    </widget>
    <widget class="QLabel" name="label">
@@ -135,6 +137,7 @@ QPushButton: disabled {
     </property>
     <property name="font">
      <font>
+      <pointsize>12</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -144,10 +147,13 @@ QPushButton: disabled {
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>40</y>
+      <y>43</y>
       <width>181</width>
       <height>17</height>
      </rect>
