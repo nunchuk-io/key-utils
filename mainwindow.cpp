@@ -19,7 +19,6 @@ MainWindow::MainWindow(QWidget *parent)
     mDropShadow->setOffset(QPointF(3,3));
     setAcceptDrops(true);
     ui->setupUi(this);
-    ui->advanceBtn->setVisible(false);
     ui->frameFileInit->setVisible(true);
     ui->frameFileName->setVisible(false);
     ui->frameError->setVisible(false);
@@ -73,14 +72,12 @@ void MainWindow::dropEvent(QDropEvent *event)
             ui->frameFileInit->setVisible(false);
             ui->frameFileName->setVisible(true);
             ui->filenameObj->setText(filePath);
-            ui->advanceBtn->setVisible(false);
         }
     }
 }
 
 void MainWindow::onSelectFileBtnPressed()
 {
-    ui->advanceBtn->setVisible(false);
     QFileDialog fileDialog(this, tr("Select encrypted file"));
     fileDialog.setNameFilter("AES Encrypted (*.aes *.AES);;Any file (*)");
 
@@ -92,7 +89,6 @@ void MainWindow::onSelectFileBtnPressed()
             ui->frameFileInit->setVisible(false);
             ui->frameFileName->setVisible(true);
             ui->filenameObj->setText(filePath);
-            ui->advanceBtn->setVisible(true);
         }
     }
 }
@@ -123,7 +119,6 @@ void MainWindow::on_closeButton_clicked()
     ui->frameFileName->setVisible(false);
     ui->filenameObj->setText("");
     ui->decryptionKeyTxt->clear();
-    ui->advanceBtn->setVisible(false);
 }
 
 void MainWindow::on_advanceBtn_clicked()
@@ -172,7 +167,6 @@ void MainWindow::removeFileDone()
     ui->frameFileName->setVisible(false);
     ui->filenameObj->setText("");
     ui->decryptionKeyTxt->clear();
-    ui->advanceBtn->setVisible(false);
 }
 
 bool MainWindow::verifyFile(tapsigner_utils::VerifyTapsignerBackupResult &ret)
