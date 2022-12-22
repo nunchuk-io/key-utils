@@ -17,15 +17,15 @@ Qt libraries and Qt Creator Download the Qt for your platform Qt offline install
 ## Setup
 ### Clone project and fetch submodules
 
-	git clone https://github.com/nunchuk-io/tapsigner-tool.git
-	cd tapsigner-tool
+	git clone https://github.com/nunchuk-io/key-utils.git
+	cd key-utils
 	git submodule update --init --recursive
 
-### Build tapsigner-tool
+### Build key-utils
 #### Build via QtCreator
 
     Open Qt Creator
-    Open tapsigner-tool project via CMakeLists.txt
+    Open key-utils project via CMakeLists.txt
     Select your Kit (include compiler) : Desktop Qt %{Qt:Version} GCC 64bit,  (such as Desktop Qt 5.12.8 GCC 64bit)
     Run qmake
     Build
@@ -33,7 +33,7 @@ Qt libraries and Qt Creator Download the Qt for your platform Qt offline install
     Run the application
 
 #### Build via CMake (commandline)
-	cd tapsigner-tool
+	cd key-utils
 	mkdir build
 	cd build
 	cmake ../
