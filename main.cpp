@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     a.setWindowIcon(QIcon(":/icon/128.png"));
     MainWindow w;
-    w.setWindowTitle("Tapsigner tool");
+    w.setWindowTitle("Key utilities");
     w.show();
     return a.exec();
 }
